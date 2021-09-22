@@ -13,14 +13,14 @@ class MainScreen(MDScreen):
 class QRScreen(MDScreen):
    
     def on_pre_enter(self):
-        print("Entering...")
+        '''Start the camera'''
+        print("Starting Camera...")
         self.ids.zbarcam.start()
 
     def on_pre_leave(self):
-        print("Closing camera...")
+        '''Pause the camera'''
+        print("Pausing camera...")
         self.ids.zbarcam.stop()
-
-        print("Camera closed")
 
 
 
@@ -37,8 +37,9 @@ class MainApp(MDApp):
         self.root.current = 'mainscreen'
 
     def get_code_data(self, data_lst):
-        print(data_lst)
+        '''Get the qr code data, create list item and add it to the main window'''
         for i in data_lst:
+            # check to see if list item with same text already exists
             if i not in [i.text for i in self.root.screens[0].ids.qrlist.children]:
                 list_item = OneLineListItem(text=i)
                 self.root.screens[0].ids.qrlist.add_widget(list_item)
